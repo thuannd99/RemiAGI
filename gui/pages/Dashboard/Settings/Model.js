@@ -8,7 +8,7 @@ import {removeTab} from "@/utils/utils";
 import Image from "next/image";
 
 export default function Model({organisationId}) {
-  const [temperature, setTemperature] = useState(0.5);
+  const [temperature, setTemperature] = useState(0);
   const [models, setModels] = useState([
     {'name':'Open AI API key','logo':'/images/openai_logo.svg','source':'OpenAi', 'api_key': ''},
     {'name':'Hugging Face auth token','logo':'/images/huggingface_logo.svg','source':'Hugging Face', 'api_key': ''},

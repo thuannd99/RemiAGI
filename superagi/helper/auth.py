@@ -11,19 +11,35 @@ from typing import Optional
 from sqlalchemy import or_
 
 
-def check_auth(Authorize: AuthJWT = Depends()):
-    """
-    Function to check if the user is authenticated or not based on the environment.
+from fastapi import Request
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-    Args:
-        Authorize (AuthJWT, optional): Instance of AuthJWT class to authorize the user. Defaults to Depends().
+security = HTTPBearer()
 
-    Returns:
-        AuthJWT: Instance of AuthJWT class if the user is authenticated.
-    """
+def check_api_key(api_key: str):
+    if api_key and api_key == get_config("APP_KEY", "lU06eGVPAEQgnQY"):
+        return True
+    return False
+
+def check_auth(request: Request, Authorize: AuthJWT = Depends()):
     env = get_config("ENV", "DEV")
+    jwt_valid = False
+    api_key_valid = False
+
     if env == "PROD":
-        Authorize.jwt_required()
+        try:
+            Authorize.jwt_required()
+            jwt_valid = True
+        except:
+            jwt_valid = False
+
+        # Extract the Authorization header
+        api_key = request.headers.get("App-Key", "")
+        api_key_valid = check_api_key(api_key)
+
+        if not jwt_valid and not api_key_valid:
+            raise HTTPException(status_code=403, detail="Both JWT and API key authentication failed")
+    
     return Authorize
 
 

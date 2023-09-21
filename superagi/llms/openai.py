@@ -8,7 +8,7 @@ from superagi.llms.base_llm import BaseLlm
 
 
 class OpenAi(BaseLlm):
-    def __init__(self, api_key, model="gpt-4", temperature=0.6, max_tokens=get_config("MAX_MODEL_TOKEN_LIMIT"), top_p=1,
+    def __init__(self, api_key, model="gpt-4", temperature=0, max_tokens=get_config("MAX_MODEL_TOKEN_LIMIT"), top_p=1,
                  frequency_penalty=0,
                  presence_penalty=0, number_of_results=1):
         """
@@ -23,12 +23,12 @@ class OpenAi(BaseLlm):
             number_of_results (int): The number of results.
         """
         self.model = model
-        self.temperature = temperature
+        self.temperature = 0
         self.max_tokens = max_tokens
-        self.top_p = top_p
+        # self.top_p = top_p
         self.frequency_penalty = frequency_penalty
         self.presence_penalty = presence_penalty
-        self.number_of_results = number_of_results
+        self.number_of_results = 1
         self.api_key = api_key
         openai.api_key = api_key
         openai.api_base = get_config("OPENAI_API_BASE", "https://api.openai.com/v1")
@@ -69,7 +69,7 @@ class OpenAi(BaseLlm):
                 messages=messages,
                 temperature=self.temperature,
                 max_tokens=max_tokens,
-                top_p=self.top_p,
+                # top_p=self.top_p,
                 frequency_penalty=self.frequency_penalty,
                 presence_penalty=self.presence_penalty
             )
