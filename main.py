@@ -309,7 +309,7 @@ def github_auth_handler(code: str = Query(...), Authorize: AuthJWT = Depends()):
             domain = user_email.split('@')[-1]
             print(domain)
             if domain != "remitano.com":
-                redirect_url_failure = "https://superagi.com/"
+                redirect_url_failure = "https://superagi.com"
                 return RedirectResponse(url=redirect_url_failure)
             db_user: User = db.session.query(User).filter(User.email == user_email).first()
             if db_user is not None:
