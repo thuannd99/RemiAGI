@@ -276,8 +276,6 @@ def github_login():
 @app.get('/github-auth')
 def github_auth_handler(code: str = Query(...), Authorize: AuthJWT = Depends()):
     """GitHub login callback"""
-    print("-------------------------------------")
-    print("AAAAAAAAAA")
     github_token_url = 'https://github.com/login/oauth/access_token'
     github_client_id = superagi.config.config.get_config("GITHUB_CLIENT_ID")
     github_client_secret = superagi.config.config.get_config("GITHUB_CLIENT_SECRET")
@@ -292,9 +290,6 @@ def github_auth_handler(code: str = Query(...), Authorize: AuthJWT = Depends()):
         'Accept': 'application/json'
     }
     response = requests.post(github_token_url, params=params, headers=headers)
-    print("-------------------------------------")
-    print("CCCCCCCCCCCCCC")
-    print(response)
     if response.ok:
         data = response.json()
         access_token = data.get('access_token')
@@ -312,11 +307,10 @@ def github_auth_handler(code: str = Query(...), Authorize: AuthJWT = Depends()):
             # Check the email domain
             domain = user_email.split('@')[-1]
             print("-------------------------------------")
-            print("BBBBB")
             print(domain)
-            if domain != "remitano.com":
-                redirect_url_failure = "https://superagi.com"
-                return RedirectResponse(url=redirect_url_failure)
+            # if domain != "remitano.com":
+            #     redirect_url_failure = "https://superagi.com"
+            #     return RedirectResponse(url=redirect_url_failure)
             db_user: User = db.session.query(User).filter(User.email == user_email).first()
             if db_user is not None:
                 jwt_token = create_access_token(user_email, Authorize)
