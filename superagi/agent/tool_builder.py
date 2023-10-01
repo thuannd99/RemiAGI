@@ -103,9 +103,9 @@ class ToolBuilder:
             tool.instructions = agent_execution_config["instruction"]
         if hasattr(tool, 'llm') and (agent_config["model"] == "gpt4" or agent_config[
             "model"] == "gpt-3.5-turbo") and tool.name != "QueryResource":
-            tool.llm = get_model(model="gpt-3.5-turbo", api_key=model_api_key, organisation_id=organisation.id , temperature=0.4)
+            tool.llm = get_model(model="gpt-3.5-turbo", api_key=model_api_key, organisation_id=organisation.id , temperature=0.0)
         elif hasattr(tool, 'llm'):
-            tool.llm = get_model(model=agent_config["model"], api_key=model_api_key, organisation_id=organisation.id, temperature=0.4)
+            tool.llm = get_model(model=agent_config["model"], api_key=model_api_key, organisation_id=organisation.id, temperature=0.0)
         if hasattr(tool, 'agent_id'):
             tool.agent_id = self.agent_id
         if hasattr(tool, 'agent_execution_id'):

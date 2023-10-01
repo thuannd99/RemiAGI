@@ -6,7 +6,7 @@ from superagi.llms.base_llm import BaseLlm
 
 
 class Replicate(BaseLlm):
-    def __init__(self, api_key, model: str = None, version: str = None, max_length=1000, temperature=0.7,
+    def __init__(self, api_key, model: str = None, version: str = None, max_length=1000, temperature=0.0,
                  candidate_count=1, top_k=40, top_p=0.95):
         """
         Args:

@@ -76,7 +76,7 @@ class TextGenerationParameters():
     """
     top_k: Optional[int] = None
     top_p: Optional[float] = None
-    temperature: float = 1.0
+    temperature: float = 0.0
     repetition_penalty: Optional[float] = None
     max_new_tokens: Optional[int] = None
     max_time: Optional[float] = None

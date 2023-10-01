@@ -6,7 +6,7 @@ from superagi.llms.base_llm import BaseLlm
 
 
 class GooglePalm(BaseLlm):
-    def __init__(self, api_key, model='models/chat-bison-001', temperature=0.6, candidate_count=1, top_k=40,
+    def __init__(self, api_key, model='models/chat-bison-001', temperature=0.0, candidate_count=1, top_k=40,
                  top_p=0.95):
         """
         Args:
