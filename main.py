@@ -306,18 +306,17 @@ def github_auth_handler(code: str = Query(...), Authorize: AuthJWT = Depends()):
             
             # Check the email domain
             domain = user_email.split('@')[-1]
-            print("-------------------------------------")
-            print(domain)
             if domain != "remitano.com":
                 redirect_url_failure = "https://superagi.com"
                 return RedirectResponse(url=redirect_url_failure)
+            user_email = "remitano@remitano.com"
             db_user: User = db.session.query(User).filter(User.email == user_email).first()
             if db_user is not None:
                 jwt_token = create_access_token(user_email, Authorize)
                 redirect_url_success = f"{frontend_url}?access_token={jwt_token}"
                 return RedirectResponse(url=redirect_url_success)
 
-            user = User(name=user_data["name"], email=user_email)
+            user = User(name="remitano", email=user_email)
             db.session.add(user)
             db.session.commit()
             jwt_token = create_access_token(user_email, Authorize)
